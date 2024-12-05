@@ -1,0 +1,61 @@
+get {{url}}/api/users/
+###
+put {{url}}/api/users/658b664cb5cfdc8980773f2c
+Content-Type: application/json
+
+{
+  "name": "test 2",
+  "email": "new@gmail.com"
+}
+###
+patch {{url}}/api/issues/6591a4d8141c6a6d869cb267
+Content-Type: application/json
+
+{
+  "assignedToUserId": null
+}
+###
+post {{url}}/api/issues
+Content-Type: application/json
+
+{
+  "title": "bug 1i",
+  "description": "description 1a"
+}
+###¬
+get {{url}}/api/products
+###
+post {{url}}/api/products
+Content-Type: application/json
+
+{
+  "name": "tea",
+  "price": 2
+}
+###
+delete {{url}}/api/issues/6591a4d8141c6a6d869cb267
+###
+post {{url}}/api/products
+Content-Type: application/json
+
+{
+  "name": "NewSolution2"
+}
+###
+post {{url}}/api/register
+Content-Type: application/json
+
+{
+  "email": "naz@gmail.com",
+  "password": ""
+}
+###
+post {{url-email}}
+Content-Type: application/json
+
+{
+  "name": "Naz",
+  "email": "postnaz@gmail.com",
+  "message": "hello world"
+}
+###

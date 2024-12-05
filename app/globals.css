@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  [type='text'],
+  [type='submit'],
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  button,
+  textarea,
+  select {
+    @apply w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-200 mt-1;
+  }
+  button {
+    @apply p-2 hover:bg-red-200 transition-colors;
+  }
+  [type='checkbox'],
+  [type='radio'] {
+    @apply rounded border-gray-300 text-indigo-500 focus:ring-indigo-500 mr-2;
+  }
+  [type='submit'] {
+    @apply cursor-pointer hover:bg-slate-300;
+  }
+}
+form {
+  @apply mt-2;
+}
+form div {
+  @apply mb-3;
+}
+label span {
+  @apply text-red-400 float-right pr-2 italic;
+}
+h6 {
+  @apply text-lg;
+}
+h5 {
+  @apply text-xl;
+}
+h4 {
+  @apply text-2xl;
+}
+h3 {
+  @apply text-3xl;
+}
+h2 {
+  @apply text-4xl;
+}
+h1 {
+  @apply text-5xl;
+}
+
+.nav-li {
+  @apply bg-blue-200 w-full block;
+}
+.nav-a {
+  @apply p-4 px-2 block  text-center;
+}
+
+/* ################  */
+.pageBg {
+  @apply bg-no-repeat bg-fixed bg-cover;
+}
+.menusBox {
+  @apply bg-slate-700 my-4;
+}
+.menusBox h3 {
+  @apply bg-indigo-100 tracking-widest p-1;
+}
+.menus {
+  @apply w-full  my-1 mb-3;
+}
+.menus tr {
+  @apply even:bg-slate-200 odd:bg-slate-100;
+}
+.menus .row_number {
+  @apply text-gray-400 w-12 font-mono;
+}
+.menus td {
+  @apply p-2 align-top;
+}
+.menus th {
+  @apply text-left p-2;
+}
+.menus .price {
+  @apply text-right font-mono w-24;
+}
+.menus .price2 {
+  @apply text-right font-mono;
+}
+.menus span {
+  @apply text-red-600;
+}
+.menus span.setMenu {
+  @apply block text-black uppercase font-bold w-24;
+}
+.menus strong {
+  @apply block text-slate-600;
+}
+.menus .winePrices {
+  @apply text-black flex md:justify-between pt-2;
+}
+.menus .winePrices i {
+  @apply not-italic font-mono mr-4;
+}
+
+.menus .item {
+  @apply w-1/4;
+}
+.commonImages img {
+  @apply rounded-full w-28 sm:w-36 md:w-40 lg:w-52 transition;
+}
+address {
+  @apply text-red-700;
+}
+.val-a {
+  @apply w-9  inline-block   bg-green-500 m-1  text-center rounded-lg;
+}
+.val-b {
+  @apply w-9 text-center  bg-slate-400 mx-1 inline-block  cursor-pointer select-none rounded-md;
+}
+.choices {
+  @apply flex flex-wrap gap-1;
+}
+
+.bg_home {
+  background: url('/veg1.jpg');
+  @apply bg-cover bg-center;
+}
+.flex_screen {
+  @apply flex flex-col mb-auto;
+}
+.flex_center {
+  @apply flex justify-center items-center grow;
+}
