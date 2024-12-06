@@ -25,7 +25,7 @@ const ContactUs = () => {
         // submitToOskars: true,
       })
       .then(res => {
-        console.log(res.statusText)
+        console.log(res)
         if (res.statusText === 'OK') setSubmitted(true)
         else setError('message not sent')
       })
