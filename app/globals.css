@@ -38,7 +38,7 @@ body {
   button,
   textarea,
   select {
-    @apply w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-slate-200 mt-1;
+    @apply w-full border-gray-300 rounded-lg shadow-sm focus:border-gray-400 focus:ring-gray-400 bg-slate-200 mt-1 p-2 border focus:outline-none;
   }
   button {
     @apply p-2 hover:bg-red-200 transition-colors;
@@ -49,6 +49,9 @@ body {
   }
   [type='submit'] {
     @apply cursor-pointer hover:bg-slate-300;
+  }
+  [type='text'] {
+    @apply border border-gray-300;
   }
 }
 form {
@@ -154,7 +157,7 @@ address {
 
 .bg_home {
   background: url('/veg1.jpg');
-  @apply bg-cover bg-center;
+  @apply bg-left-top bg-cover bg-fixed;
 }
 .flex_screen {
   @apply flex flex-col mb-auto;

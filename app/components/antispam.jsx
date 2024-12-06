@@ -53,7 +53,7 @@ const Antispam = ({ setPermission }) => {
             <div className="text-lg">
               Click on <span className="val-a text-2xl">{no1}</span> below to proceed
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center flex-col">
               <div className="choices">
                 {arr1.map(a => (
                   <span
@@ -67,7 +67,7 @@ const Antispam = ({ setPermission }) => {
                   </span>
                 ))}
               </div>
-              <div className="border border-slate-300 p-2 rounded-lg">
+              <div className="border border-slate-300 p-2 rounded-lg flex mt-2 ">
                 <MdDone
                   className={` text-5xl ${check1 ? 'text-green-500 ' : 'text-slate-300'}`}
                 />

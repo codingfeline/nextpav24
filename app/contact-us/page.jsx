@@ -39,7 +39,7 @@ const ContactUs = () => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-6 ">
-      <div className={`bg-slate-100 p-5 md:rounded-lg w-2/3   `}>
+      <div className={`bg-slate-100 p-5 sm:rounded-lg w-full sm:w-[638px]  `}>
         <h4>
           ContactUs{' '}
           <FaLock
@@ -49,13 +49,23 @@ const ContactUs = () => {
           />
         </h4>
         {submitted ? (
-          'submitted'
+          <>
+            <p>Enquiry submitted.</p>
+            <button
+              onClick={() => {
+                setSubmitted(false)
+                reset()
+              }}
+            >
+              Clear
+            </button>
+          </>
         ) : (
           <form
             onSubmit={handleSubmit(onSubmit)}
             className={`transition-opacity delay-700 ${
               !allowForm ? 'opacity-40 text-slate-400' : 'opacity-100 '
-            }`}
+            } `}
           >
             <fieldset disabled={!allowForm && 'disabled'}>
               <div>
