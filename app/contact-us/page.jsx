@@ -26,7 +26,7 @@ const ContactUs = () => {
       })
       .then(res => {
         console.log(res)
-        if (res.statusText === 'OK') setSubmitted(true)
+        if (res.status === 200) setSubmitted(true)
         else setError('message not sent')
       })
       .catch(err => console.log(err))
