@@ -17,6 +17,7 @@ const ContactUs = () => {
   const setPermission = flag => setAllowForm(flag)
 
   const onSubmit = data => {
+    console.log(error)
     console.log(data)
     axios
       .post('/api/send-email', {
