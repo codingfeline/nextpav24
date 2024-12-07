@@ -6,7 +6,7 @@ export default async function Home() {
   return (
     <>
       <div className=" p-3 opacity-90 flex flex-col w-full">
-        <div className="my-3 bg-[#c3e9c3ef] border-[#599c59] border p-2 rounded-lg ">
+        <div className="my-3 bg-[#f9e4b7] border-[#caa75c] border p-2 rounded-lg ">
           <h1>Authentic Thai Cuisine</h1>
           <div className="flex flex-col justify-between gap-6">
             <Text size="5">
@@ -17,7 +17,7 @@ export default async function Home() {
             </Text>
             <section className="relative">
               <h2>DINE-IN OR TAKE AWAY</h2>
-              <div className="sm:absolute sm:right-0 text-orange-500 origin-bottom sm:bottom-3 sm:-rotate-6 font-bold">
+              <div className="md:absolute md:right-0 text-[#f0920e] origin-bottom md:bottom-3 md:-rotate-6 font-bold">
                 <div className="text-4xl">20% discount</div>
                 <i>on all take-aways</i>
               </div>
@@ -34,7 +34,7 @@ export default async function Home() {
         <aside
           itemScope
           itemType="http://schema.org/LocalBusiness"
-          className="bg-[#beecbee7] p-2 rounded-lg w-[300px] flex flex-col justify-center items-center border border-[#599c59] text-lg place-self-center"
+          className="bg-[#e5cc96] p-2 rounded-lg w-[300px] flex flex-col justify-center items-center border border-[#e5cc96] text-lg place-self-center"
         >
           {/* <time itemprop="openingHours" datetime="Tu-Su 17:30-23:00" */}
           <span itemProp="openingHours" content="Tu,We,Th,Fr,Sa,Su 17:30-23:00">

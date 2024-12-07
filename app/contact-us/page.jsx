@@ -39,7 +39,7 @@ const ContactUs = () => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-6 ">
-      <div className={`bg-slate-100 p-5 sm:rounded-lg w-full sm:w-[638px]  `}>
+      <div className={`bg-[#e2dfd8] p-5 sm:rounded-lg w-full sm:w-[638px]  `}>
         <h4>
           ContactUs{' '}
           <FaLock

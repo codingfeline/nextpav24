@@ -33,7 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex   flex-col  bg_home `}
       >
-        <Theme accentColor="cyan" className=" mb-auto flex flex-col ">
+        <Theme accentColor="orange" className=" mb-auto flex flex-col ">
           <Navbar />
           <main className="bg-blue-100 grow bg_home  ">
             <Container size="3">{children}</Container>

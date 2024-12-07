@@ -38,7 +38,7 @@ body {
   button,
   textarea,
   select {
-    @apply w-full border-gray-300 rounded-lg shadow-sm focus:border-gray-400 focus:ring-gray-400 bg-slate-200 mt-1 p-2 border focus:outline-none;
+    @apply w-full border-[#e5cc96] rounded-lg shadow-sm focus:border-[#E19D0B] focus:ring-gray-400 bg-slate-200 mt-1 p-2 border focus:outline-none;
   }
   button {
     @apply p-2 hover:bg-red-200 transition-colors;
@@ -51,7 +51,7 @@ body {
     @apply cursor-pointer hover:bg-slate-300;
   }
   [type='text'] {
-    @apply border border-gray-300;
+    @apply border border-[#e5cc96];
   }
 }
 form {
@@ -83,7 +83,7 @@ h1 {
 }
 
 .nav-li {
-  @apply bg-blue-200 w-full block;
+  @apply bg-[#e1c892] w-full block;
 }
 .nav-a {
   @apply p-4 px-2 block  text-center;
@@ -97,13 +97,13 @@ h1 {
   @apply my-4;
 }
 .menusBox h3 {
-  @apply bg-indigo-100 tracking-widest p-1 mt-8;
+  @apply bg-[#eadab7] tracking-widest p-1 mt-8 -mb-1;
 }
 .menus {
   @apply w-full  my-1 mb-3;
 }
 .menus tr {
-  @apply even:bg-slate-200 odd:bg-slate-100;
+  @apply even:bg-[#f6efe2] odd:bg-[#f7f6f5];
 }
 .menus .row_number {
   @apply text-gray-400 w-12 font-mono pl-4;
@@ -112,7 +112,7 @@ h1 {
   @apply p-2 align-top;
 }
 .menus th {
-  @apply text-left p-2;
+  @apply text-left p-2 bg-[#dbcbaa] text-gray-500;
 }
 .menus .price {
   @apply text-right font-mono w-[100px] pr-5;
@@ -156,7 +156,7 @@ address {
 }
 
 .bg_home {
-  background: url('/veg1.jpg');
+  background: url('/thailand.jpg');
   @apply bg-left-top bg-cover bg-fixed;
 }
 .flex_screen {
