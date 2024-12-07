@@ -94,10 +94,10 @@ h1 {
   @apply bg-no-repeat bg-fixed bg-cover;
 }
 .menusBox {
-  @apply bg-slate-700 my-4;
+  @apply my-4;
 }
 .menusBox h3 {
-  @apply bg-indigo-100 tracking-widest p-1;
+  @apply bg-indigo-100 tracking-widest p-1 mt-8;
 }
 .menus {
   @apply w-full  my-1 mb-3;
@@ -106,7 +106,7 @@ h1 {
   @apply even:bg-slate-200 odd:bg-slate-100;
 }
 .menus .row_number {
-  @apply text-gray-400 w-12 font-mono;
+  @apply text-gray-400 w-12 font-mono pl-4;
 }
 .menus td {
   @apply p-2 align-top;
@@ -115,7 +115,7 @@ h1 {
   @apply text-left p-2;
 }
 .menus .price {
-  @apply text-right font-mono w-24;
+  @apply text-right font-mono w-[100px] pr-5;
 }
 .menus .price2 {
   @apply text-right font-mono;
@@ -166,5 +166,5 @@ address {
   @apply flex justify-center items-center grow;
 }
 td svg {
-  @apply text-red-500 float-end;
+  @apply text-red-500 float-start;
 }

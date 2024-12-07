@@ -1,3 +1,4 @@
+// import parse from 'html-react-parser'
 import { GiChiliPepper } from 'react-icons/gi'
 import reactStringReplace from 'react-string-replace'
 
@@ -16,9 +17,16 @@ const Table4col_1_price = ({ menus, title }) => {
         </thead>
         <tbody>
           {menus.map((menu, index) => {
-            const desc = reactStringReplace(menu.description, '*', (match, i) => (
-              <GiChiliPepper key={i} />
-            ))
+            const desc = reactStringReplace(menu.description, '*', (match, i) => {
+              // let sp = ''
+              // if (i === 1) sp = '&nbsp;'
+              return (
+                <div key={i}>
+                  {``}
+                  <GiChiliPepper />
+                </div>
+              )
+            })
             index++
             return (
               <tr key={menu.id}>
