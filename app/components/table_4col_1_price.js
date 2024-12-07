@@ -1,4 +1,5 @@
-import parse from 'html-react-parser'
+import { GiChiliPepper } from 'react-icons/gi'
+import reactStringReplace from 'react-string-replace'
 
 const Table4col_1_price = ({ menus, title }) => {
   return (
@@ -15,12 +16,15 @@ const Table4col_1_price = ({ menus, title }) => {
         </thead>
         <tbody>
           {menus.map((menu, index) => {
+            const desc = reactStringReplace(menu.description, '*', (match, i) => (
+              <GiChiliPepper key={i} />
+            ))
             index++
             return (
               <tr key={menu.id}>
                 <td className="row_number">{index}</td>
                 <td>{menu.item}</td>
-                <td>{parse(menu.description)}</td>
+                <td>{desc}</td>
                 <td className="price">&pound; {menu.price1.toFixed(2)}</td>
               </tr>
             )

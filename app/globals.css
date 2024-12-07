@@ -165,3 +165,6 @@ address {
 .flex_center {
   @apply flex justify-center items-center grow;
 }
+td svg {
+  @apply text-red-500 float-end;
+}
