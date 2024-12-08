@@ -31,7 +31,7 @@ const Table4col_1_price = ({ menus, title }) => {
             })
             index++
             return (
-              <tr key={menu.id}>
+              <tr key={index}>
                 <td className="row_number">{menu.item_id}</td>
                 <td>{menu.item}</td>
                 <td>{desc}</td>
