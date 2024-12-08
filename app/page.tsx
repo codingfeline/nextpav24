@@ -45,7 +45,7 @@ export default async function Home() {
                   <GiMeal className=" inline-block " />
                 </div>
               </div>
-              <div className="flex sm:flex-row justify-around items-center place-self-center w-full sm:w-[20px]  ">
+              <div className="flex  justify-around items-center place-self-center w-full sm:w-[20px]  ">
                 OR
               </div>
               <div className="takeaway w-full flex flex-col justify-center items-center">
