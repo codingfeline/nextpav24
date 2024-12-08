@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 
 const MainMenu = async () => {
   const menus = await prisma.allMenus.findMany()
+  // const sortedMenus =
   const items = [
     //prettier-ignore
     { name: 'starters', display: 'Starters'},
@@ -29,13 +30,15 @@ const MainMenu = async () => {
   return (
     <>
       <div className=" menusBox">
-        {items.map(item => (
-          <Table4col_1_price
-            key={item.name}
-            menus={menus.filter(m => m.category === item.name)}
-            title={item.display}
-          />
-        ))}
+        {items
+          .map(item => (
+            <Table4col_1_price
+              key={item.name}
+              menus={menus.filter(m => m.category === item.name)}
+              title={item.display}
+            />
+          ))
+          .sort()}
         <Spiciness />
         <PriceChange />
       </div>

@@ -1,4 +1,8 @@
+import _ from 'lodash'
+
 const Table4col_2_price = ({ menus, title }) => {
+  const sortedMenus = _.orderBy(menus, ['item_id'])
+
   return (
     <>
       <h3>{title}</h3>
@@ -12,11 +16,11 @@ const Table4col_2_price = ({ menus, title }) => {
           </tr>
         </thead>
         <tbody>
-          {menus.map((menu, index) => {
+          {sortedMenus.map((menu, index) => {
             index++
             return (
               <tr key={index}>
-                <td className="row_number">{index}</td>
+                <td className="row_number">{menu.item_id}</td>
                 <td>{menu.item}</td>
                 <td className="price">&pound; {menu.price1.toFixed(2)}</td>
                 <td className="price">&pound; {menu.price2.toFixed(2)}</td>

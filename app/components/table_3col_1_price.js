@@ -15,7 +15,7 @@ const Table3col_1_price = ({ menus, title }) => {
             index++
             return (
               <tr key={index}>
-                <td className="row_number">{index}</td>
+                <td className="row_number">{menu.item_id}</td>
                 <td>{menu.item}</td>
                 <td className="price">&pound; {menu.price1.toFixed(2)}</td>
               </tr>

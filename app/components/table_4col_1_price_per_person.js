@@ -18,7 +18,7 @@ const Table4col_1_price_per_person = ({ menus, title }) => {
             index++
             return (
               <tr key={index}>
-                <td className="row_number">{index}</td>
+                <td className="row_number">{menu.item_id}</td>
                 <td className="item">{menu.item}</td>
                 <td>{parse(menu.description)}</td>
                 <td className="price2">

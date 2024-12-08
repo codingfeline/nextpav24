@@ -24,6 +24,7 @@ model Wines {
 
 model AllMenus {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
+  item_id     Int
   item        String
   description String
   price1      Float

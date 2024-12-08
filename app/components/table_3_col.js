@@ -1,6 +1,9 @@
 import parse from 'html-react-parser'
+import _ from 'lodash'
 
 const Table3_col = ({ menus, title }) => {
+  const sortedMenus = _.orderBy(menus, ['item_id'])
+
   return (
     <>
       <h3>{title}</h3>
@@ -13,11 +16,11 @@ const Table3_col = ({ menus, title }) => {
           </tr>
         </thead>
         <tbody>
-          {menus.map((menu, index) => {
+          {sortedMenus.map((menu, index) => {
             index++
             return (
               <tr key={index}>
-                <td className="row_number">{index}</td>
+                <td className="row_number">{menu.item_id}</td>
                 <td>{menu.item}</td>
                 <td>
                   {parse(menu.description)}
