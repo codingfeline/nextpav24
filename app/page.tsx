@@ -45,7 +45,7 @@ export default async function Home() {
                   <GiMeal className=" inline-block " />
                 </div>
               </div>
-              <div className="flex sm:flex-row justify-around items-center place-self-center w-full sm:w-[20px] flex-col ">
+              <div className="flex sm:flex-row justify-around items-center place-self-center w-full sm:w-[20px]  ">
                 OR
               </div>
               <div className="takeaway w-full flex flex-col justify-center items-center">
@@ -58,10 +58,10 @@ export default async function Home() {
                     (click/tap to phone)
                   </div>
                 </div>
-                <div className=" md:right-0 text-[#f0920e] origin-bottom md:bottom-3 md:-rotate-6 font-bold">
-                  <div className=" font-[cursive]">
+                <div className=" md:right-0 text-[#eb6e08] origin-bottom md:bottom-3 md:-rotate-6 font-bold">
+                  <div className=" font-[courier]">
                     <div className="text-4xl">20% discount</div>
-                    <i>on all take-aways</i>
+                    <i className="text-xl">on all take-aways</i>
                   </div>
                 </div>
               </div>
