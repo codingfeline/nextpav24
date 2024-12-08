@@ -97,7 +97,7 @@ h1 {
   @apply my-4;
 }
 .menusBox h3 {
-  @apply bg-[#eadab7] tracking-widest p-1 mt-8 -mb-1;
+  @apply bg-[#eadab7] tracking-widest p-1 mt-8 -mb-1 text-[#b9830c] font-semibold;
 }
 .menus {
   @apply w-full  my-1 mb-3;
@@ -112,7 +112,7 @@ h1 {
   @apply p-2 align-top;
 }
 .menus th {
-  @apply text-left p-2 bg-[#dbcbaa] text-gray-500;
+  @apply text-left p-2 bg-[#dbcbaa] text-[#966909];
 }
 .menus .price {
   @apply text-right font-mono w-[100px] pr-5;

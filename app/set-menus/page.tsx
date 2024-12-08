@@ -2,6 +2,12 @@ import Table2_col from '@/app/components/table_2_col'
 import Table4col_1_price_per_person from '@/app/components/table_4col_1_price_per_person'
 import Table4col_2_price from '@/app/components/table_4col_2_price'
 import prisma from '@/prisma/client'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Set Menus',
+  description: 'The set menus',
+}
 
 const SetMenus = async () => {
   const menus = await prisma.allMenus.findMany()

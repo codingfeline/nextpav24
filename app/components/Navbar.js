@@ -3,13 +3,14 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { FaBars } from 'react-icons/fa'
+import { FaBars, FaHome } from 'react-icons/fa'
 
 const Navbar = () => {
   const [hidden, setHidden] = useState(true)
   const toggleMenu = () => setHidden(!hidden)
   const collapse = () => setHidden(true)
   const pathname = usePathname()
+  let home = ''
 
   useEffect(() => {
     window.addEventListener('scroll', collapse)
@@ -24,17 +25,22 @@ const Navbar = () => {
     { to: '/locate-us', page: 'locate us' },
     { to: '/contact-us', page: 'contact us' },
   ]
+  {
+    if (pathname === '/') home = <FaHome className="text-3xl" />
+  }
 
   return (
     <>
       <nav className=" flex flex-col">
-        <div className="bg-slate-100 md:hidden z-40 flex justify-center">
+        <div className="bg-slate-100 md:hidden z-40 flex justify-center items-center">
           <FaBars
-            className="text-5xl p-1  bg-[#E19D0B] text-slate-600 hover:cursor-pointer hover:text-slate-800 w-full border border-b-slate-400"
+            className="text-5xl p-1  bg-[#E19D0B] text-white hover:cursor-pointer hover:text-black w-full border border-b-slate-400"
             onClick={toggleMenu}
           />
-          <span className=" text-center absolute right-2 top-2 uppercase">
-            {/* {pathname.replace('/', '').replace('-', ' ')} */}
+          <span className="  absolute right-2 uppercase">
+            {/* {pathname} */}
+            {pathname.replace('/', '').replace('-', ' ')}
+            {home}
           </span>
         </div>
         <div
@@ -52,7 +58,7 @@ const Navbar = () => {
                     onClick={collapse}
                     href={link.to}
                     className={`nav-a 
-                    ${isActive ? 'bg-[#E19D0B] hover:bg-slate-100' : 'hover:bg-[#E19D0B'}
+                    ${isActive ? 'bg-[#E19D0B] ' : 'hover:bg-[#e8b74c]'}
                   `}
                   >
                     {link.page.toUpperCase()}

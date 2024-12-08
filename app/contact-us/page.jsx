@@ -7,6 +7,11 @@ import { useForm } from 'react-hook-form'
 import { FaLock } from 'react-icons/fa'
 // import { DevTool } from '@hookform/devtools'
 
+// export const metadata = {
+//   title: 'Contact Us',
+//   description: 'Email to get in touch with us',
+// }
+
 const ContactUs = () => {
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')

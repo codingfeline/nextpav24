@@ -1,6 +1,6 @@
 const Booking = () => {
   return (
-    <div className="w-full sm:w-[500px] place-self-center ">
+    <div className="w-full sm:w-[500px] place-self-center m-3 ">
       <iframe
         src="https://svtables.com/widget/?rest_id=403"
         className="w-full sm:rounded-xl mt-2"

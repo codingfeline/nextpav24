@@ -1,6 +1,12 @@
 import Table3_col from '@/app/components/table_3_col'
 import Table3col_1_price from '@/app/components/table_3col_1_price'
 import prisma from '@/prisma/client'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Bangkok Pavilion | Drinks Menu',
+  description: 'The drinks menu',
+}
 
 const Drinks = async () => {
   const menus = await prisma.allMenus.findMany()
