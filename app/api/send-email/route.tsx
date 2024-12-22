@@ -1,4 +1,4 @@
-import WelcomeTemplate from '@/app/emails/WelcomeTemplate'
+import WelcomeTemplate from '@/emails/WelcomeTemplate'
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
@@ -11,10 +11,12 @@ export async function POST(req: NextRequest) {
     from: 'info@bangkokpavilion.co.uk',
     to: 'info@bangkokpavilion.co.uk',
     cc: email,
-    bcc: 'wisawate1@hotmail.co.uk',
+    bcc: 'postnaz@gmail.com',
     subject: 'Web enquiry',
     react: <WelcomeTemplate message={message} />,
   })
 
   return NextResponse.json({})
 }
+
+// bcc: 'wisawate1@hotmail.co.uk',

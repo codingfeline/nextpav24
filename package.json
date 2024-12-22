@@ -6,7 +6,8 @@
     "dev": "set PORT=1114 && set browser=NONE&& next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "preview-email": "email dev -p 2114"
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",
