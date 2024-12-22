@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     from: 'info@bangkokpavilion.co.uk',
     to: 'info@bangkokpavilion.co.uk',
     cc: email,
-    bcc: 'eizan.dirahs@gmail.com',
+    bcc: 'wisawate1@hotmail.co.uk',
     subject: 'Web enquiry',
     react: <WelcomeTemplate message={message} />,
   })
