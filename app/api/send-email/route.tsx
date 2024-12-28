@@ -9,8 +9,9 @@ export async function POST(req: NextRequest) {
   const { name, email, message } = body
   await resend.emails.send({
     from: 'info@bangkokpavilion.co.uk',
-    to: 'admin@bangkokpavilion.co.uk',
-    cc: email,
+    to: email,
+    cc: 'admin@bangkokpavilion.co.uk',
+    bcc: 'admin@bangkokpavilion.co.uk',
     subject: 'Web enquiry',
     react: <WelcomeTemplate name={name} message={message} />,
   })
