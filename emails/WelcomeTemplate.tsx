@@ -1,31 +1,34 @@
-import { Body, Html, Preview, Text } from '@react-email/components'
+import { Body, Container, Html, Preview, Text } from '@react-email/components'
 
 interface Prop {
   message: string
+  name: string
 }
 
-const WelcomeTemplate = ({ message }: Prop) => {
+const WelcomeTemplate = ({ message, name }: Prop) => {
   return (
     <Html>
-      <Preview>Welcome aboard!</Preview>
-      <Body>
-        {/* <Container> */}
-        <Text>{message}</Text>
-        <p>
-          --------------------------------------------
-          <br />
-          <em>enquiry from bangkokpavilion.co.uk</em>
-          <br />
-          --------------------------------------------
-        </p>
-        {/* </Container> */}
+      <Preview>Enquiry from bangkokpavilion.co.uk</Preview>
+      <Body style={style}>
+        <Container>
+          <Text>Dear {name},</Text>
+          <Text>We have received your enquiry.</Text>
+          <hr />
+          <Text>{message}</Text>
+          {/* <hr />
+          <p>
+            <em>enquiry from bangkokpavilion.co.uk</em> */}
+          {/* </p> */}
+          <hr />
+        </Container>
       </Body>
     </Html>
   )
 }
 
-// const styles = {
-
-// }
+const style = {
+  color: '#333',
+  fontFamily: 'Verdana',
+}
 
 export default WelcomeTemplate

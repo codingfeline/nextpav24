@@ -6,13 +6,13 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { email, message } = body
+  const { name, email, message } = body
   await resend.emails.send({
     from: 'info@bangkokpavilion.co.uk',
-    to: 'info@bangkokpavilion.co.uk',
+    to: 'admin@bangkokpavilion.co.uk',
     cc: email,
     subject: 'Web enquiry',
-    react: <WelcomeTemplate message={message} />,
+    react: <WelcomeTemplate name={name} message={message} />,
   })
 
   return NextResponse.json({})
