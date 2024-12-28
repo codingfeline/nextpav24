@@ -1,4 +1,6 @@
+import tailwindTypo from '@tailwindcss/typography';
 import type { Config } from "tailwindcss";
+
 
 export default {
   content: [
@@ -14,5 +16,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindTypo],
 } satisfies Config;

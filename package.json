@@ -13,6 +13,7 @@
     "@prisma/client": "^6.0.0",
     "@radix-ui/themes": "^3.1.6",
     "@react-email/components": "^0.0.29",
+    "@tailwindcss/typography": "^0.5.15",
     "axios": "^1.7.9",
     "html-react-parser": "^5.1.18",
     "lodash": "^4.17.21",
@@ -23,8 +24,10 @@
     "react-email": "^3.0.3",
     "react-hook-form": "^7.53.2",
     "react-icons": "^5.3.0",
+    "react-markdown": "^9.0.1",
     "react-string-replace": "^1.1.1",
-    "resend": "^4.0.1"
+    "resend": "^4.0.1",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/node": "^20",
