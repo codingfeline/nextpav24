@@ -1,4 +1,4 @@
-import { Body, Container, Html, Preview, Text } from '@react-email/components'
+import { Body, Html, Preview, Text } from '@react-email/components'
 
 interface Prop {
   message: string
@@ -10,17 +10,15 @@ const WelcomeTemplate = ({ message, name }: Prop) => {
     <Html>
       <Preview>Enquiry from bangkokpavilion.co.uk</Preview>
       <Body style={style}>
-        <Container>
-          <Text>Dear {name},</Text>
-          <Text>We have received your enquiry.</Text>
-          <hr />
-          <Text>{message}</Text>
-          {/* <hr />
-          <p>
-            <em>enquiry from bangkokpavilion.co.uk</em> */}
-          {/* </p> */}
-          <hr />
-        </Container>
+        {/* <Container> */}
+        <Text>Dear {name},</Text>
+        <Text>We have received your enquiry.</Text>
+        <Text>Thank you.</Text>
+        <hr />
+        <p></p>
+        <Text>{message}</Text>
+        <hr />
+        {/* </Container> */}
       </Body>
     </Html>
   )
@@ -29,6 +27,8 @@ const WelcomeTemplate = ({ message, name }: Prop) => {
 const style = {
   color: '#333',
   fontFamily: 'Verdana',
+  paddingLeft: '10px',
+  // border: '1px solid #999',
 }
 
 export default WelcomeTemplate
