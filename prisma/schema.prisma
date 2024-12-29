@@ -34,10 +34,11 @@ model AllMenus {
 }
 
 model Contact {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  email   String
-  message String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
 }
 
 model Account {
