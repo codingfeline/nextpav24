@@ -1,4 +1,5 @@
 import { Body, Html, Preview, Text } from '@react-email/components'
+import parse from 'html-react-parser'
 
 interface Prop {
   message: string
@@ -30,7 +31,7 @@ const WelcomeTemplate = ({ message, name }: Prop) => {
         </Text>
         <hr />
         <p></p>
-        <Text>{message}</Text>
+        <Text>{parse(message)}</Text>
         <hr />
         {/* </Container> */}
       </Body>
@@ -43,7 +44,7 @@ const style = {
   color: '#333',
   fontFamily: 'Verdana',
   paddingLeft: '10px',
-  // border: '1px solid #999',
+  // whiteSpace: 'pre-wrap',
 }
 const link = {
   textDecoration: 'none',

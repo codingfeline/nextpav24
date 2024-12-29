@@ -24,9 +24,13 @@ const ContactUs = () => {
   const onSubmit = data => {
     console.log(error)
     console.log(data)
+    const newData = {
+      ...data,
+      message: data.message.replace(/\n/g, '<br />'),
+    }
     axios
       .post('/api/send-email', {
-        ...data,
+        ...newData,
         // submitToOskars: true,
       })
       .then(res => {
