@@ -31,9 +31,9 @@ const MainMenu = async () => {
     <>
       <div className=" menusBox">
         {items
-          .map(item => (
+          .map((item, index) => (
             <Table4col_1_price
-              key={item.name}
+              key={index}
               menus={menus.filter(m => m.category === item.name)}
               title={item.display}
             />
