@@ -30,10 +30,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # env files (can opt-in for committing if needed)
-.env*.local
-.env
-*.rest
-test_api.rest
+.env.local
+.env*
 
 # vercel
 .vercel
@@ -42,4 +40,4 @@ test_api.rest
 *.tsbuildinfo
 next-env.d.ts
 .vscode
-.react-email/
+*.rest
