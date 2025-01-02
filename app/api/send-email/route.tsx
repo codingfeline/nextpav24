@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
     from: 'info@bangkokpavilion.co.uk',
     to: email,
     cc: 'info@bangkokpavilion.co.uk',
+    replyTo: [email, 'info@bangkokpavilion.co.uk'],
     bcc: 'admin@bangkokpavilion.co.uk',
     subject: 'Web enquiry',
     react: <WelcomeTemplate name={name} message={message} />,
