@@ -23,7 +23,7 @@ const Navbar = () => {
     { to: '/set-menus', page: 'set menus' },
     { to: '/drinks', page: 'drinks' },
     { to: '/locate-us', page: 'locate us' },
-    { to: '/contact-us', page: 'contact us' },
+    { to: '/contact', page: 'contact' },
   ]
   {
     if (pathname === '/') home = <FaHome className="text-3xl" />

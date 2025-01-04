@@ -41,7 +41,7 @@ body {
     @apply w-full border-[#e5cc96] rounded-lg shadow-sm focus:border-[#E19D0B] focus:ring-gray-400 bg-slate-200 mt-1 p-2 border focus:outline-none;
   }
   button {
-    @apply p-2 hover:bg-red-200 transition-colors;
+    @apply p-2 transition-colors;
   }
   [type='checkbox'],
   [type='radio'] {
