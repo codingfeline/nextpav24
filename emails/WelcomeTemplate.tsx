@@ -4,9 +4,10 @@ import parse from 'html-react-parser'
 interface Prop {
   message: string
   name: string
+  phone: string
 }
 
-const WelcomeTemplate = ({ message, name }: Prop) => {
+const WelcomeTemplate = ({ message, name, phone }: Prop) => {
   return (
     <Html>
       <Preview>Enquiry from bangkokpavilion.co.uk</Preview>
@@ -31,7 +32,10 @@ const WelcomeTemplate = ({ message, name }: Prop) => {
         </Text>
         <hr />
         <p></p>
+        <Text style={other}>Your message:</Text>
         <Text>{parse(message)}</Text>
+        <p></p>
+        <Text style={other}>Your phone: {phone} </Text>
         <hr />
         {/* </Container> */}
       </Body>
@@ -48,6 +52,10 @@ const style = {
 }
 const link = {
   textDecoration: 'none',
+}
+
+const other = {
+  fontStyle: 'italic',
 }
 
 export default WelcomeTemplate
