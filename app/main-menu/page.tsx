@@ -5,7 +5,7 @@ import PriceChange from '../components/price-change'
 import Spiciness from '../components/spiciness'
 
 export const metadata: Metadata = {
-  title: 'Main Menu',
+  title: 'Bangkok Pavilion | Main Menu',
   description: 'All the menus',
 }
 
