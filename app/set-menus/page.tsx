@@ -38,4 +38,6 @@ const SetMenus = async () => {
   )
 }
 
+export const dynamic = 'force-dynamic'
+
 export default SetMenus
