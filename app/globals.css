@@ -168,3 +168,9 @@ address {
 td svg {
   @apply text-red-500 float-start;
 }
+
+html,
+body {
+  height: 100%;
+  /* @apply flex flex-col; */
+}

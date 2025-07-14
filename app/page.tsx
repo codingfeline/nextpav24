@@ -61,7 +61,7 @@ export default async function Home() {
                 <div className=" md:right-0 text-[#eb6e08] origin-bottom md:bottom-3 md:-rotate-6 font-bold">
                   <div className=" font-[courier]">
                     <div className="text-4xl">20% discount</div>
-                    <i className="text-xl">on all take-aways</i>
+                    <i className="text-xl">on take-aways £15 and above</i>
                   </div>
                 </div>
               </div>
