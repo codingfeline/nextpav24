@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
 import { z } from 'zod'
+import Reveal from '../components/Reveal'
 
 type ContactFormData = z.infer<typeof ContactSchema>
 
@@ -65,30 +66,32 @@ const ContentForm = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form className=" space-y-3 p-5 rounded-lg bg-[#eae7e2e9]">
-        {/* <form className=" space-y-3" onSubmit={onSubmit}> */}
-        <Heading>Contact Us</Heading>
-        <TextField.Root placeholder=" Name" {...register('name')} />
-        <ErrorMessage>{errors.name?.message}</ErrorMessage>
+      <Reveal>
+        <form className=" space-y-3 p-5 rounded-lg bg-[#eae7e2e9]">
+          {/* <form className=" space-y-3" onSubmit={onSubmit}> */}
+          <Heading>Contact Us</Heading>
+          <TextField.Root placeholder=" Name" {...register('name')} />
+          <ErrorMessage>{errors.name?.message}</ErrorMessage>
 
-        <TextField.Root placeholder=" Email" {...register('email')} />
-        <ErrorMessage>{errors.email?.message}</ErrorMessage>
+          <TextField.Root placeholder=" Email" {...register('email')} />
+          <ErrorMessage>{errors.email?.message}</ErrorMessage>
 
-        <TextField.Root placeholder="Phone" type="number" {...register('phone')} />
-        <ErrorMessage>{errors.phone?.message}</ErrorMessage>
+          <TextField.Root placeholder=" Phone" type="number" {...register('phone')} />
+          <ErrorMessage>{errors.phone?.message}</ErrorMessage>
 
-        {/* <Controller
+          {/* <Controller
           name="message"
           control={control}
           render={({ field }) => <SimpleMDE placeholder="Message" {...field} />}
           /> */}
-        <TextArea rows={8} placeholder=" Message" {...register('message')} />
-        <ErrorMessage>{errors.message?.message}</ErrorMessage>
+          <TextArea rows={8} placeholder=" Message" {...register('message')} />
+          <ErrorMessage>{errors.message?.message}</ErrorMessage>
 
-        <Button disabled={submitting} onClick={onSubmit}>
-          <a href="#">Send enquiry {submitting && <Spinner />}</a>
-        </Button>
-      </form>
+          <Button disabled={submitting} onClick={onSubmit}>
+            <a href="#">Send enquiry {submitting && <Spinner />}</a>
+          </Button>
+        </form>
+      </Reveal>
     </div>
   )
 }
