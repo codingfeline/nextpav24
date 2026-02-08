@@ -2,6 +2,8 @@ import Table3_col from '@/app/components/table_3_col'
 import Table3col_1_price from '@/app/components/table_3col_1_price'
 import prisma from '@/prisma/client'
 import { Metadata } from 'next'
+import Reveal from '../components/Reveal'
+import RevealLoop from '../components/RevealLoop'
 
 export const metadata: Metadata = {
   title: 'Bangkok Pavilion | Drinks Menu',
@@ -24,13 +26,16 @@ const Drinks = async () => {
   return (
     <>
       <div className="menusBox">
-        <Table3_col menus={menus.filter(m => m.category === 'wine')} title="Wines" />
-        {items.map(item => (
-          <Table3col_1_price
-            key={item.name}
-            menus={menus.filter(m => m.category === item.name)}
-            title={item.display}
-          />
+        <Reveal delay="delay-100">
+          <Table3_col menus={menus.filter(m => m.category === 'wine')} title="Wines" />
+        </Reveal>
+        {items.map((item, index) => (
+          <RevealLoop key={item.name} delay={index * 150}>
+            <Table3col_1_price
+              menus={menus.filter(m => m.category === item.name)}
+              title={item.display}
+            />
+          </RevealLoop>
         ))}
       </div>
     </>

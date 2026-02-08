@@ -3,6 +3,7 @@ import Table4col_1_price_per_person from '@/app/components/table_4col_1_price_pe
 import Table4col_2_price from '@/app/components/table_4col_2_price'
 import prisma from '@/prisma/client'
 import { Metadata } from 'next'
+import Reveal from '../components/Reveal'
 
 export const metadata: Metadata = {
   title: 'Set Menus',
@@ -21,18 +22,24 @@ const SetMenus = async () => {
   return (
     <>
       <div className="menusBox">
-        <Table4col_2_price
-          menus={menus.filter(m => m.category === 'lunch_menus')}
-          title="Lunch Menus"
-        />
-        <Table2_col
-          menus={menus.filter(m => m.category === 'choices')}
-          title="Choose one starter below for a 2-course lunch"
-        />
-        <Table4col_1_price_per_person
-          menus={menus.filter(m => m.category === 'set_menu')}
-          title="Set Menus"
-        />
+        <Reveal delay="delay-100">
+          <Table4col_2_price
+            menus={menus.filter(m => m.category === 'lunch_menus')}
+            title="Lunch Menus"
+          />
+        </Reveal>
+        <Reveal delay="delay-200">
+          <Table2_col
+            menus={menus.filter(m => m.category === 'choices')}
+            title="Choose one starter below for a 2-course lunch"
+          />
+        </Reveal>
+        <Reveal delay="delay-300">
+          <Table4col_1_price_per_person
+            menus={menus.filter(m => m.category === 'set_menu')}
+            title="Set Menus"
+          />
+        </Reveal>
       </div>
     </>
   )
