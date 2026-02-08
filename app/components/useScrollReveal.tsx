@@ -17,7 +17,8 @@ export function useScrollReveal() {
         //   entry.target.classList.remove('opacity-100', 'translate-y-0')
         // }
       },
-      { threshold: 0.1 },
+      // { threshold: 0.1 },
+      { rootMargin: '0px 0px -10px 0px', threshold: 0 },
     )
 
     if (elementRef.current) observer.observe(elementRef.current)
