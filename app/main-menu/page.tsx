@@ -1,8 +1,8 @@
 import Table4col_1_price from '@/app/components/table_4col_1_price'
 import prisma from '@/prisma/client'
 import { Metadata } from 'next'
-import PriceChange from '../components/price-change'
-import Spiciness from '../components/spiciness'
+import RevealLoop from '../components/RevealLoop'
+import MainMenuEls from './MainMenuEls'
 
 export const metadata: Metadata = {
   title: 'Bangkok Pavilion | Main Menu',
@@ -32,15 +32,15 @@ const MainMenu = async () => {
       <div className=" menusBox">
         {items
           .map((item, index) => (
-            <Table4col_1_price
-              key={index}
-              menus={menus.filter(m => m.category === item.name)}
-              title={item.display}
-            />
+            <RevealLoop key={index} delay={index * 150}>
+              <Table4col_1_price
+                menus={menus.filter(m => m.category === item.name)}
+                title={item.display}
+              />
+            </RevealLoop>
           ))
           .sort()}
-        <Spiciness />
-        <PriceChange />
+        <MainMenuEls />
       </div>
     </>
   )
