@@ -9,10 +9,10 @@ const Spiciness = () => {
   return (
     <div className="text-red-600  w-full p-2 gap-7 flex bg-black flex_center">
       {/* * Mild, ** Medium, *** Hot */}
-      {levels.map((level, i) => {
+      {levels.map((level, index) => {
         const parsed = reactStringReplace(level, '*', () => <GiChiliPepper />)
         return (
-          <span className=" flex items-center " key={i}>
+          <span className=" flex items-center " key={index}>
             {parsed}
           </span>
         )
