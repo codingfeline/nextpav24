@@ -143,7 +143,7 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="mb-6">
+          {/* <section className="mb-6">
             <h2 className="text-base font-semibold uppercase tracking-wider text-[#444] mb-3">
               How long we keep it
             </h2>
@@ -199,7 +199,7 @@ export default function PrivacyPage() {
               </Link>
               .
             </p>
-          </section>
+          </section> */}
 
           <section>
             <h2 className="text-base font-semibold uppercase tracking-wider text-[#444] mb-3">
