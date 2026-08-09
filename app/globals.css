@@ -5,19 +5,105 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Warm theme (default) — brand colours as "R G B" channels.
+     Channels (not hex) so Tailwind /opacity utilities keep working. */
+  --c-gold: 225 157 11;
+  --c-gold-light: 232 183 76;
+  --c-gold-dark: 185 131 12;
+  --c-cream-50: 247 246 245;
+  --c-cream-100: 246 239 226;
+  --c-cream-200: 249 228 183;
+  --c-cream-300: 234 218 183;
+  --c-cream-400: 225 200 146;
+  --c-cream-500: 229 204 150;
+  --c-cream-600: 219 203 170;
+  --c-cream-700: 202 167 92;
+  --c-brown: 100 72 10;
+  --c-brown-light: 150 105 9;
+  --c-ember: 235 110 8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Blue theme — active when <html data-theme="blue"> */
+:root[data-theme='blue'] {
+  --c-gold: 44 110 181;
+  --c-gold-light: 91 147 207;
+  --c-gold-dark: 31 81 136;
+  --c-cream-50: 244 247 251;
+  --c-cream-100: 233 240 248;
+  --c-cream-200: 216 230 244;
+  --c-cream-300: 196 216 236;
+  --c-cream-400: 169 196 224;
+  --c-cream-500: 184 208 232;
+  --c-cream-600: 155 188 220;
+  --c-cream-700: 111 159 206;
+  --c-brown: 23 49 77;
+  --c-brown-light: 44 82 130;
+  --c-ember: 224 90 24;
+}
+
+/* Green theme — active when <html data-theme="green"> */
+:root[data-theme='green'] {
+  --c-gold: 47 143 87;
+  --c-gold-light: 92 174 126;
+  --c-gold-dark: 31 107 63;
+  --c-cream-50: 244 249 245;
+  --c-cream-100: 232 242 234;
+  --c-cream-200: 214 234 217;
+  --c-cream-300: 192 220 198;
+  --c-cream-400: 166 203 176;
+  --c-cream-500: 188 217 195;
+  --c-cream-600: 156 196 168;
+  --c-cream-700: 111 174 132;
+  --c-brown: 29 59 41;
+  --c-brown-light: 47 93 64;
+  --c-ember: 224 90 24;
+}
+
+/* Pink theme — active when <html data-theme="pink"> */
+:root[data-theme='pink'] {
+  --c-gold: 207 79 141;
+  --c-gold-light: 226 133 179;
+  --c-gold-dark: 161 52 104;
+  --c-cream-50: 251 244 248;
+  --c-cream-100: 248 233 241;
+  --c-cream-200: 244 217 231;
+  --c-cream-300: 238 195 216;
+  --c-cream-400: 227 166 194;
+  --c-cream-500: 236 185 208;
+  --c-cream-600: 221 159 191;
+  --c-cream-700: 200 120 160;
+  --c-brown: 94 31 63;
+  --c-brown-light: 138 53 99;
+  --c-ember: 224 90 24;
+}
+
+/* Gray theme — active when <html data-theme="gray"> */
+:root[data-theme='gray'] {
+  --c-gold: 91 100 112;
+  --c-gold-light: 139 147 157;
+  --c-gold-dark: 63 70 81;
+  --c-cream-50: 246 246 247;
+  --c-cream-100: 238 238 240;
+  --c-cream-200: 228 229 231;
+  --c-cream-300: 213 215 218;
+  --c-cream-400: 191 194 199;
+  --c-cream-500: 205 207 211;
+  --c-cream-600: 182 185 191;
+  --c-cream-700: 147 152 160;
+  --c-brown: 42 46 52;
+  --c-brown-light: 74 79 87;
+  --c-ember: 224 90 24;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 @layer base {
@@ -38,20 +124,25 @@ body {
   button,
   textarea,
   select {
-    @apply w-full border-[#e5cc96] rounded-lg shadow-sm focus:border-[#E19D0B] focus:ring-gray-400 bg-slate-200 mt-1 p-2 border focus:outline-none;
+    @apply w-full border-cream-500 rounded-lg shadow-sm focus:border-gold focus:ring-2 focus:ring-gold/40 bg-white mt-1 p-2 border focus:outline-none transition;
   }
   button {
     @apply p-2 transition-colors;
   }
   [type='checkbox'],
   [type='radio'] {
-    @apply rounded border-gray-300 text-indigo-500 focus:ring-indigo-500 mr-2;
+    @apply rounded border-cream-600 text-gold focus:ring-gold mr-2;
   }
   [type='submit'] {
-    @apply cursor-pointer hover:bg-slate-300;
+    @apply cursor-pointer bg-gold text-white border-gold font-semibold hover:bg-gold-light;
   }
   [type='text'] {
-    @apply border border-[#e5cc96];
+    @apply border border-cream-500;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-semibold leading-tight tracking-tight;
   }
 }
 form {
@@ -83,10 +174,10 @@ h1 {
 }
 
 .nav-li {
-  @apply bg-[#e1c892] w-full block;
+  @apply bg-cream-400 w-full block;
 }
 .nav-a {
-  @apply p-4 px-2 block  text-center;
+  @apply py-8 px-2 block text-center transition-colors md:py-4;
 }
 
 /* ################  */
@@ -97,13 +188,13 @@ h1 {
   @apply my-4;
 }
 .menusBox h3 {
-  @apply bg-[#eadab7] tracking-widest p-1 mt-8 -mb-1 text-[#b9830c] font-semibold;
+  @apply bg-cream-300 tracking-widest p-1 mt-8 -mb-1 text-gold-dark font-semibold rounded-t-md;
 }
 .menus {
-  @apply w-full  my-1 mb-3;
+  @apply w-full my-1 mb-3;
 }
 .menus tr {
-  @apply even:bg-[#f6efe2] odd:bg-[#f7f6f5];
+  @apply even:bg-cream-100 odd:bg-cream-50 transition-colors hover:bg-cream-300;
 }
 .menus .row_number {
   @apply text-gray-400 w-12 font-mono pl-4;
@@ -112,7 +203,7 @@ h1 {
   @apply p-2 align-top;
 }
 .menus th {
-  @apply text-left p-2 bg-[#dbcbaa] text-[#966909];
+  @apply text-left p-2 bg-cream-600 text-brown-light;
 }
 .menus .price {
   @apply text-right font-mono w-[100px] pr-5;
@@ -140,16 +231,16 @@ h1 {
   @apply w-1/4;
 }
 .commonImages img {
-  @apply rounded-full w-28 sm:w-36 md:w-40 lg:w-52 transition;
+  @apply rounded-full w-28 sm:w-36 md:w-40 lg:w-52 transition hover:scale-105;
 }
 address {
-  @apply text-red-700;
+  @apply text-brown;
 }
 .val-a {
-  @apply w-9  inline-block   bg-green-500 m-1  text-center rounded-lg;
+  @apply w-9 inline-block bg-green-500 m-1 text-center rounded-lg;
 }
 .val-b {
-  @apply w-9 text-center  bg-slate-400 mx-1 inline-block  cursor-pointer select-none rounded-md;
+  @apply w-9 text-center bg-slate-400 mx-1 inline-block cursor-pointer select-none rounded-md;
 }
 .choices {
   @apply flex flex-wrap gap-1;

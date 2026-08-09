@@ -1,17 +1,19 @@
-import { FaMap } from 'react-icons/fa'
+import CookieConsentManager from './CookieConsentManager'
 import Link from './Link'
+import ThemeChooser from './ThemeChooser'
 
 const Footer = () => {
   return (
     <footer
-      className="bg-slate-100 p-5  flex flex-col items-center sm:flex-row
-    justify-between"
+      className="bg-cream-50 border-t border-cream-300 p-5  flex flex-col items-center gap-3 sm:flex-row
+    sm:justify-between"
     >
       <span>&copy;{` ${new Date().getFullYear()}`} Bangkok Pavilion</span>
-      <div className="flex justify-center items-center gap-1">
-        <FaMap className="text-lg " />
-        <Link href="/locate-us" className="flex gap-2">
-          <address>114 HIGH STREET CT14 6BB, DEAL, KENT, UK</address>
+      <div className="flex flex-wrap justify-center items-center gap-3">
+        <ThemeChooser />
+        <CookieConsentManager />
+        <Link href="/privacy-policy" className="ml-4">
+          Privacy Policy
         </Link>
       </div>
     </footer>

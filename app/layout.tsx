@@ -1,3 +1,4 @@
+import { CookieConsentProvider } from '@/providers/CookieConsentProvider'
 import { Container, Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
 import type { Metadata } from 'next'
@@ -33,13 +34,27 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex   flex-col  bg_home `}
       >
-        <Theme accentColor="blue" className=" mb-auto flex flex-col ">
-          <Navbar />
-          <main className="bg-blue-100 grow bg_home  ">
-            <Container size="3">{children}</Container>
-          </main>
-          <Footer />
-        </Theme>
+        {/* Apply the saved colour theme before paint to avoid a flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('theme');document.documentElement.dataset.theme=['blue','green','pink','gray'].indexOf(t)>-1?t:'warm'}catch(e){}`,
+          }}
+        />
+        <CookieConsentProvider>
+          <Theme
+            accentColor="amber"
+            grayColor="sand"
+            radius="large"
+            appearance="light"
+            className=" mb-auto flex flex-col "
+          >
+            <Navbar />
+            <main className="grow bg_home  ">
+              <Container size="3">{children}</Container>
+            </main>
+            <Footer />
+          </Theme>
+        </CookieConsentProvider>
       </body>
     </html>
   )

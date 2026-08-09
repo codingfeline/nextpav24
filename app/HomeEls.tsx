@@ -53,7 +53,7 @@ const HomeElIntro = () => {
                 (click/tap to phone)
               </div>
             </div>
-            <div className=" md:right-0 text-[#eb6e08] origin-bottom md:bottom-3 md:-rotate-6 font-bold">
+            <div className=" md:right-0 text-ember origin-bottom md:bottom-3 md:-rotate-6 font-bold">
               <div className=" font-[courier]">
                 <div className="text-4xl">20% discount</div>
                 <i className="text-xl">on take-aways £15 and above</i>
@@ -66,7 +66,7 @@ const HomeElIntro = () => {
         <aside
           itemScope
           itemType="http://schema.org/LocalBusiness"
-          className="bg-[#e5cc96] my-3 p-2 rounded-lg w-[300px] flex flex-col justify-center items-center border border-[#e5cc96] text-lg place-self-center"
+          className="bg-cream-500 my-3 p-3 rounded-lg shadow-md w-[300px] flex flex-col justify-center items-center border border-cream-700 text-lg place-self-center"
         >
           {/* <time itemprop="openingHours" datetime="Tu-Su 17:30-23:00" */}
           <span itemProp="openingHours" content="Tu,We,Th,Fr,Sa,Su 17:30-23:00">
