@@ -92,3 +92,15 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verification_tokens")
 }
+
+model CookieConsent {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  anonymousId   String?  @unique
+  userId        String?  @db.ObjectId
+  analytics     Boolean  @default(false)
+  externalMedia Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("cookie_consents")
+}
