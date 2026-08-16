@@ -11,8 +11,8 @@ const Table4col_2_price = ({ menus, title }) => {
           <tr>
             <th></th>
             <th>Item</th>
-            <th className="price">1-Course</th>
-            <th className="price">2-Course</th>
+            <th className="price max-md:hidden whitespace-nowrap">1-Course</th>
+            <th className="price max-md:hidden whitespace-nowrap">2-Course</th>
           </tr>
         </thead>
         <tbody>
@@ -21,9 +21,15 @@ const Table4col_2_price = ({ menus, title }) => {
             return (
               <tr key={index}>
                 <td className="row_number">{menu.item_id}</td>
-                <td>{menu.item}</td>
-                <td className="price">&pound; {menu.price1.toFixed(2)}</td>
-                <td className="price">&pound; {menu.price2.toFixed(2)}</td>
+                <td>
+                  {menu.item}
+                  <div className="price-stacked md:hidden">
+                    <div>1-Course: &pound; {menu.price1.toFixed(2)}</div>
+                    <div>2-Course: &pound; {menu.price2.toFixed(2)}</div>
+                  </div>
+                </td>
+                <td className="price max-md:hidden">&pound; {menu.price1.toFixed(2)}</td>
+                <td className="price max-md:hidden">&pound; {menu.price2.toFixed(2)}</td>
               </tr>
             )
           })}

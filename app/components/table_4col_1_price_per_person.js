@@ -10,7 +10,7 @@ const Table4col_1_price_per_person = ({ menus, title }) => {
             <th></th>
             <th>Item</th>
             <th>Description</th>
-            <th className="price">Price</th>
+            <th className="price max-md:hidden">Price</th>
           </tr>
         </thead>
         <tbody>
@@ -19,9 +19,15 @@ const Table4col_1_price_per_person = ({ menus, title }) => {
             return (
               <tr key={index}>
                 <td className="row_number">{menu.item_id}</td>
-                <td className="item">{menu.item}</td>
+                <td className="item">
+                  {menu.item}
+                  <div className="price-stacked md:hidden">
+                    &pound; {menu.price1.toFixed(2)}
+                    <span className="setMenu">per person</span>
+                  </div>
+                </td>
                 <td>{parse(menu.description)}</td>
-                <td className="price2">
+                <td className="price2 max-md:hidden">
                   &pound; {menu.price1.toFixed(2)}
                   <span className="setMenu">per person</span>
                 </td>
