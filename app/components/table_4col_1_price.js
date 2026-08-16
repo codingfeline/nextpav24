@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { GiChiliPepper } from 'react-icons/gi'
 import reactStringReplace from 'react-string-replace'
 
-const Table4col_1_price = ({ menus, title }) => {
+const Table4col_1_price = ({ menus, title, stackPriceMobile = false }) => {
   const sortedMenus = _.orderBy(menus, ['item_id'])
   return (
     <>
@@ -14,7 +14,7 @@ const Table4col_1_price = ({ menus, title }) => {
             <th></th>
             <th>Item</th>
             <th>Description</th>
-            <th className="price">Price</th>
+            <th className={`price ${stackPriceMobile ? 'max-md:hidden' : ''}`}>Price</th>
           </tr>
         </thead>
         <tbody>
@@ -33,9 +33,18 @@ const Table4col_1_price = ({ menus, title }) => {
             return (
               <tr key={index}>
                 <td className="row_number">{menu.item_id}</td>
-                <td>{menu.item}</td>
+                <td>
+                  {menu.item}
+                  {stackPriceMobile && (
+                    <div className="price-stacked md:hidden">
+                      &pound; {menu.price1.toFixed(2)}
+                    </div>
+                  )}
+                </td>
                 <td>{desc}</td>
-                <td className="price">&pound; {menu.price1.toFixed(2)}</td>
+                <td className={`price ${stackPriceMobile ? 'max-md:hidden' : ''}`}>
+                  &pound; {menu.price1.toFixed(2)}
+                </td>
               </tr>
             )
           })}

@@ -36,6 +36,7 @@ const MainMenu = async () => {
               <Table4col_1_price
                 menus={menus.filter(m => m.category === item.name)}
                 title={item.display}
+                stackPriceMobile={item.name === 'starters'}
               />
             </RevealLoop>
           ))
