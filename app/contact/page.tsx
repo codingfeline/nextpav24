@@ -8,7 +8,7 @@ import { Button, Callout, Heading, TextArea, TextField } from '@radix-ui/themes'
 import axios from 'axios'
 import Link from 'next/link'
 // import 'easymde/dist/easymde.min.css'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
 import { FaMap, FaPhone } from 'react-icons/fa'
@@ -21,6 +21,7 @@ const ContentForm = () => {
   const [error] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitted] = useState(false)
+  const honeypotRef = useRef<HTMLInputElement>(null)
 
   const {
     register,
@@ -32,13 +33,13 @@ const ContentForm = () => {
   })
 
   const onSubmit = handleSubmit(async data => {
-    const convertedData = {
+    const submissionData = {
       ...data,
-      message: data.message.replace(/\n/g, '<br />'),
+      website: honeypotRef.current?.value ?? '',
     }
     try {
       setSubmitting(true)
-      await axios.post('/api/send-email/', convertedData)
+      await axios.post('/api/send-email/', submissionData)
       // router.push('/')
       // setSubmitted(true)
       toast('Enquiry submitted')
@@ -72,6 +73,15 @@ const ContentForm = () => {
         <form className=" space-y-3 p-5 rounded-lg shadow-lg bg-cream-50/95">
           {/* <form className=" space-y-3" onSubmit={onSubmit}> */}
           <Heading>Contact Us</Heading>
+          <input
+            ref={honeypotRef}
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="absolute left-[-9999px] h-px w-px overflow-hidden"
+          />
           <TextField.Root placeholder=" Name" {...register('name')} />
           <ErrorMessage>{errors.name?.message}</ErrorMessage>
 
