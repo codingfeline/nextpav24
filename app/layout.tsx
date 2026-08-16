@@ -3,6 +3,7 @@ import { Container, Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import BackToTop from './components/BackToTop'
 import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import './globals.css'
@@ -53,6 +54,7 @@ export default function RootLayout({
               <Container size="3">{children}</Container>
             </main>
             <Footer />
+            <BackToTop />
           </Theme>
         </CookieConsentProvider>
       </body>
