@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { FaBars, FaHome } from 'react-icons/fa'
+import { FaBars, FaHome, FaTimes } from 'react-icons/fa'
 import ThemeChooser from './ThemeChooser'
 
 const Navbar = () => {
@@ -45,12 +45,21 @@ const Navbar = () => {
           </span>
         </div>
         <div
-          className={`duration-200 md:static absolute bg-gold md:min-h-fit min-h-[100vh] left-0  md:w-auto  w-full flex items-center justify-center  z-50
+          className={`duration-200 md:static absolute bg-gold md:min-h-fit min-h-[100vh] left-0  md:w-auto  w-full flex items-start md:items-center justify-center  z-50
       ${!hidden ? 'top-[0%]' : 'top-[-120%]'}
       `}
           onClick={collapse}
         >
           <ul className="flex flex-col justify-center items-center md:flex-row md:justify-around  bg-gold w-full h-full md:h-12">
+            <li
+              className="md:hidden w-full flex justify-end px-4 py-2"
+              onClick={e => e.stopPropagation()}
+            >
+              <FaTimes
+                className="text-4xl text-white hover:cursor-pointer hover:text-black transition-colors"
+                onClick={collapse}
+              />
+            </li>
             {links.map(link => {
               const isActive = pathname === link.to
               return (

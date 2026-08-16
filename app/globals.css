@@ -177,7 +177,7 @@ h1 {
   @apply bg-cream-400 w-full block;
 }
 .nav-a {
-  @apply py-8 px-2 block text-center transition-colors md:py-4;
+  @apply py-4 px-2 block text-center transition-colors md:py-4;
 }
 
 /* ################  */
@@ -210,6 +210,9 @@ h1 {
 }
 .menus .price2 {
   @apply text-right font-mono;
+}
+.menus .price-stacked {
+  @apply font-mono text-gold-dark;
 }
 .menus span {
   @apply text-red-600;
