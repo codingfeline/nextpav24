@@ -268,3 +268,91 @@ body {
   height: 100%;
   /* @apply flex flex-col; */
 }
+
+/* Used by NewHome to fade in a zoomed circle's content */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* New home circles: each circle's content is tinted with lighter shades of
+   that circle's colour. A panel class sets the shades; .circlePanel applies them. */
+.drinksPanel {
+  /* circle #9FEDF3 */
+  --tint-1: #e8fbfd;
+  --tint-2: #d6f7fa;
+  --tint-3: #c4f3f7;
+  --tint-4: #b3eff4;
+  --tint-text: #0c2f33;
+}
+.setMenusPanel {
+  /* circle #E8884C */
+  --tint-1: #fdf0e8;
+  --tint-2: #fae3d5;
+  --tint-3: #f6d0b8;
+  --tint-4: #f3c2a4;
+  --tint-text: #3d1e0a;
+}
+.mainMenuPanel {
+  /* circle #DB7C7C */
+  --tint-1: #fbefef;
+  --tint-2: #f6dede;
+  --tint-3: #f0c9c9;
+  --tint-4: #ebb9b9;
+  --tint-text: #3b1414;
+}
+.locateUsPanel {
+  /* circle #E2B5F2 */
+  --tint-1: #fbf4fd;
+  --tint-2: #f5e6fb;
+  --tint-3: #eed6f8;
+  --tint-4: #e8c8f5;
+  --tint-text: #33173d;
+}
+.contactPanel {
+  /* circle #6788B3 */
+  --tint-1: #eef2f7;
+  --tint-2: #dfe6f0;
+  --tint-3: #cdd8e7;
+  --tint-4: #bccbdf;
+  --tint-text: #14243a;
+}
+
+/* Tables (Main Menu, Set Menus, Drinks) */
+.circlePanel .menusBox h3 {
+  background-color: var(--tint-3);
+  color: var(--tint-text);
+}
+.circlePanel .menus th {
+  background-color: var(--tint-4);
+  color: var(--tint-text);
+}
+.circlePanel .menus tr:nth-child(odd) {
+  background-color: var(--tint-1);
+}
+.circlePanel .menus tr:nth-child(even) {
+  background-color: var(--tint-2);
+}
+.circlePanel .menus tr:hover {
+  background-color: var(--tint-3);
+}
+/* Contact form and address cards */
+.circlePanel .bg-cream-50\/95 {
+  background-color: var(--tint-1);
+}
+/* Locate Us: the "map not loaded" box, and a map sized to fit the circle */
+.circlePanel .bg-cream-100 {
+  background-color: var(--tint-1);
+  border-color: var(--tint-4);
+}
+.circlePanel iframe,
+.circlePanel .min-h-\[70vh\] {
+  min-height: 60vh;
+}
+
+/* /new-home: swap the layout's background photo (bg_home) for the temple one.
+   Only pages containing NewHome's .newHomeBg wrapper are affected. */
+body:has(.newHomeBg),
+main:has(.newHomeBg) {
+  background-image: url('/new-temple-bg.webp');
+}

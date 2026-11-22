@@ -50,7 +50,7 @@ export default function RootLayout({
             className=" mb-auto flex flex-col "
           >
             <Navbar />
-            <main className="grow bg_home  ">
+            <main className="grow bg_home overflow-x-clip">
               <Container size="3">{children}</Container>
             </main>
             <Footer />
