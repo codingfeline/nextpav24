@@ -18,6 +18,9 @@ const Navbar = () => {
     window.addEventListener('resize', collapse)
   }, [])
 
+  // The new home design has its own circle navigation, so no header there
+  if (pathname === '/new-home') return null
+
   const links = [
     { to: '/', page: 'Home' },
     { to: '/main-menu', page: 'Main Menu' },
