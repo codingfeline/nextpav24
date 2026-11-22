@@ -29,43 +29,30 @@ const CENTER: Circle = {
   r: 872.5,
   fill: '#DBEF98',
   label: 'Home',
-  sublabels: ['Book a table', 'Opening Hours'],
+  sublabels: ['Book a table'],
   icon: FaHome,
 }
 const SMALL_R = 484
 const SMALL_OPACITY = 0.75 // lets the background photo show through
-const smallStart: Omit<Circle, 'r'>[] = [
-  { cx: 2340, cy: 763, fill: '#DB7C7C', label: 'Main Menu', icon: FaUtensils },
-  {
-    cx: 3875,
-    cy: 2029,
-    fill: '#6788B3',
-    label: 'Contact Us',
-    icon: FaEnvelope,
-  },
-  {
-    cx: 3391,
-    cy: 3805,
-    fill: '#E2B5F2',
-    label: 'Locate Us',
-    icon: FaMapMarkerAlt,
-  },
-  { cx: 1288, cy: 3805, fill: '#9FEDF3', label: 'Drinks', icon: FaCocktail },
-  {
-    cx: 804,
-    cy: 1934,
-    fill: '#E8884C',
-    label: 'Set Menus',
-    icon: FaConciergeBell,
-  },
+// Distance of every small circle from the big one's centre. Edges touch at
+// 1356.5 (big radius 872.5 + small radius 484), so this leaves a ~145 gap.
+const ORBIT_DIST = 1500
+// Small circles in clockwise order, starting at the top. They're spaced
+// evenly (72° apart) on one shared orbit.
+const small: Omit<Circle, 'r' | 'cx' | 'cy'>[] = [
+  { fill: '#DB7C7C', label: 'Main Menu', icon: FaUtensils },
+  { fill: '#6788B3', label: 'Contact Us', icon: FaEnvelope },
+  { fill: '#E2B5F2', label: 'Locate Us', icon: FaMapMarkerAlt },
+  { fill: '#9FEDF3', label: 'Drinks', icon: FaCocktail },
+  { fill: '#E8884C', label: 'Set Menus', icon: FaConciergeBell },
 ]
 
 // Each small circle's orbit (distance + starting angle around the big one)
-const orbits = smallStart.map(({ cx, cy, ...rest }) => {
-  const dx = cx - CENTER.cx
-  const dy = cy - CENTER.cy
-  return { dist: Math.hypot(dx, dy), angle0: Math.atan2(dy, dx), ...rest }
-})
+const orbits = small.map((rest, i) => ({
+  dist: ORBIT_DIST,
+  angle0: -Math.PI / 2 + (i * 2 * Math.PI) / small.length,
+  ...rest,
+}))
 
 // Frame the full sweep of every orbit, so no circle is ever clipped
 const REACH = Math.max(...orbits.map(o => o.dist)) + SMALL_R
@@ -80,6 +67,11 @@ const ARC_LABELS = new Set([
   'Locate Us',
   'Contact Us',
 ])
+
+// How much a hovered circle's words and icon grow
+const HOVER_TEXT_SCALE = 1.2
+// Font size of the small circles' words (the icon and smaller lines scale with it)
+const SMALL_LABEL_SIZE = 100
 
 const ZOOM_MS = 700
 const ORBIT_PERIOD_MS = 60_000 // one full revolution per minute
@@ -104,7 +96,9 @@ const arcMetrics = (r: number, label: string) => {
 // Sizes and vertical positions (relative to the circle's centre) of a circle's
 // label, its smaller lines and its icon, arranged so the whole block is centred
 const labelLayout = (i: number, sublabels: string[] = [], hasIcon = false) => {
-  const labelSize = i === 0 ? 300 : 140
+  // Small circles' size leaves room for the longest word ("Contact Us", "Main
+  // Menu") to stay inside the circle even when grown on hover
+  const labelSize = i === 0 ? 300 : SMALL_LABEL_SIZE
   const subSize = labelSize * 0.45
   const iconSize = labelSize * 1.1
   // Each smaller line's offset below the label's centre
@@ -190,6 +184,8 @@ export default function NewHome({ panels = {} }: Props) {
   const zoomFrameRef = useRef<number>(0)
   const [viewBox, setViewBox] = useState<ViewBox>(FULL_VIEW)
   const [selected, setSelected] = useState<number | null>(null)
+  // Circle under the mouse; its words and icon grow along with it
+  const [hovered, setHovered] = useState<number | null>(null)
   const [rotation, setRotation] = useState(0)
   const [zoomDone, setZoomDone] = useState(false)
   // Which label is (or is moving) on its circle's border, and how far along
@@ -215,6 +211,15 @@ export default function NewHome({ panels = {} }: Props) {
   }, [selected])
 
   const circles = positionsAt(rotation)
+
+  // Grow a circle's words and icon (about the circle's centre) while it's
+  // hovered and nothing is zoomed in
+  const hoverGrow = (i: number): React.CSSProperties => ({
+    transformOrigin: `${circles[i].cx}px ${circles[i].cy}px`,
+    transform:
+      hovered === i && selected === null ? `scale(${HOVER_TEXT_SCALE})` : 'scale(1)',
+    transition: 'transform 300ms ease-out',
+  })
 
   // Smoothly animate the viewBox from wherever it is now to `target`
   const animateTo = useCallback((target: ViewBox, onDone?: () => void) => {
@@ -358,6 +363,8 @@ export default function NewHome({ panels = {} }: Props) {
             }}
             className={`${circleHover} ${selected === i ? '!scale-100' : ''}`}
             onClick={() => (selected === i ? zoomOut() : zoomIn(i))}
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(h => (h === i ? null : h))}
           />
         ))}
         {/* Circle labels follow their circle as it orbits; they ignore the
@@ -399,9 +406,10 @@ export default function NewHome({ panels = {} }: Props) {
               dominantBaseline="central"
               fontSize={labelSize}
               fontWeight={600}
-              letterSpacing={i === 0 ? 20 : 8}
+              letterSpacing={labelSize * 0.06}
               fill="#0C0C0C"
               className="pointer-events-none select-none"
+              style={hoverGrow(i)}
             >
               {label}
             </text>
@@ -424,6 +432,7 @@ export default function NewHome({ panels = {} }: Props) {
               fill="#0C0C0C"
               opacity={arc?.index === i ? 1 - arc.p : 1}
               className="pointer-events-none select-none"
+              style={hoverGrow(i)}
             >
               {sublabel}
             </text>
@@ -453,13 +462,18 @@ export default function NewHome({ panels = {} }: Props) {
             size += (endSize - size) * p
             rotate = (-90 + (a * 180) / Math.PI) * p
           }
+          // Outer group grows on hover; inner group places and turns the icon
           return (
-            <g
-              key={`${label}-icon`}
-              transform={`translate(${x} ${y}) rotate(${rotate})`}
-              className="pointer-events-none"
-            >
-              <Icon x={-size / 2} y={-size / 2} size={size} color="#0C0C0C" aria-hidden />
+            <g key={`${label}-icon`} className="pointer-events-none" style={hoverGrow(i)}>
+              <g transform={`translate(${x} ${y}) rotate(${rotate})`}>
+                <Icon
+                  x={-size / 2}
+                  y={-size / 2}
+                  size={size}
+                  color="#0C0C0C"
+                  aria-hidden
+                />
+              </g>
             </g>
           )
         })}
@@ -482,7 +496,7 @@ export default function NewHome({ panels = {} }: Props) {
             {/* Scrolling content; top padding leaves room for the close button */}
             <div
               className={`${
-                fillScreen ? 'max-h-[85dvh]' : 'max-h-[min(85vh,85vw)]'
+                fillScreen ? 'max-h-[82dvh]' : 'max-h-[min(85vh,85vw)]'
               } overflow-y-auto overscroll-contain ${fillScreen ? 'px-1 pb-2' : 'p-4'} pt-14`}
             >
               {panel}
