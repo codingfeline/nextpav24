@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import MapEmbed from '../locate-us/MapEmbed'
+import Booking from '../components/booking'
 import ContactContent from '../components/ContactContent'
 import DrinksContent from '../components/DrinksContent'
 import HomeContent from '../components/HomeContent'
@@ -24,6 +25,8 @@ export default function NewHomePage() {
       <NewHome
         panels={{
           Home: <HomeContent />,
+          // The Home circle's "Book a table" line shows just the booking widget
+          'Book a table': <Booking />,
           'Main Menu': (
             <div className="circlePanel mainMenuPanel">
               <MainMenuContent />

@@ -76,9 +76,11 @@ const SMALL_LABEL_SIZE = 100
 const ZOOM_MS = 700
 const ORBIT_PERIOD_MS = 60_000 // one full revolution per minute
 
-// Scale around each circle's own centre: 90% at rest, 100% on hover
+// Scale around each circle's own centre: 90% at rest, 100% on hover. Driven by
+// the `hovered` state (not CSS :hover) so it stays grown while the mouse is over
+// a clickable sub-line sitting on top of the circle.
 const circleHover =
-  'origin-center [transform-box:fill-box] scale-90 hover:scale-100 transition-transform duration-300 ease-out cursor-pointer'
+  'origin-center [transform-box:fill-box] transition-transform duration-300 ease-out cursor-pointer'
 
 // Where a border label aims to sit, measured up from due west (π/4 = north-west)
 const ARC_LABEL_ANGLE = Math.PI / 4
@@ -174,7 +176,9 @@ const MOBILE_QUERY = '(max-width: 767px)'
 const MOBILE_OVERSHOOT = 1.25
 
 type Props = {
-  // Content to show inside a circle once zoomed in, keyed by circle label
+  // Content to show inside a circle once zoomed in, keyed by circle label.
+  // A key matching one of a circle's sublabels makes that line clickable: it
+  // zooms into its circle and shows that content instead of the label's.
   panels?: Record<string, ReactNode>
 }
 
@@ -184,6 +188,8 @@ export default function NewHome({ panels = {} }: Props) {
   const zoomFrameRef = useRef<number>(0)
   const [viewBox, setViewBox] = useState<ViewBox>(FULL_VIEW)
   const [selected, setSelected] = useState<number | null>(null)
+  // Which panel to show once zoomed: the circle's label, or a clicked sublabel
+  const [panelKey, setPanelKey] = useState<string | null>(null)
   // Circle under the mouse; its words and icon grow along with it
   const [hovered, setHovered] = useState<number | null>(null)
   const [rotation, setRotation] = useState(0)
@@ -267,9 +273,10 @@ export default function NewHome({ panels = {} }: Props) {
     }
   }, [animateTo, animateArc])
 
-  const zoomIn = (index: number) => {
+  const zoomIn = (index: number, key = circles[index].label ?? null) => {
     const svg = svgRef.current
     if (!svg) return
+    setPanelKey(key)
     const { cx, cy, r } = circles[index]
     // When zoomed the SVG is exactly one viewport tall. Desktop: the circle's
     // diameter spans the full width. Mobile: zoom further, until the circle
@@ -318,8 +325,7 @@ export default function NewHome({ panels = {} }: Props) {
     }
   }, [zoomOut])
 
-  const selectedLabel = selected === null ? undefined : circles[selected].label
-  const panel = zoomDone && selectedLabel ? panels[selectedLabel] : null
+  const panel = zoomDone && selected !== null && panelKey ? panels[panelKey] : null
 
   return (
     // Break out of the layout's Radix <Container> so the black background
@@ -361,7 +367,9 @@ export default function NewHome({ panels = {} }: Props) {
               fillOpacity: i === 0 && selected !== 0 ? 1 : SMALL_OPACITY,
               transition: `transform 300ms ease-out, fill-opacity ${ZOOM_MS}ms ease-in-out`,
             }}
-            className={`${circleHover} ${selected === i ? '!scale-100' : ''}`}
+            className={`${circleHover} ${
+              selected === i || (hovered === i && selected === null) ? 'scale-100' : 'scale-90'
+            }`}
             onClick={() => (selected === i ? zoomOut() : zoomIn(i))}
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(h => (h === i ? null : h))}
@@ -419,24 +427,48 @@ export default function NewHome({ panels = {} }: Props) {
             moves to the border when zoomed in */}
         {circles.flatMap(({ cx, cy, sublabels = [], icon }, i) => {
           const { subSize: fontSize, subY } = labelLayout(i, sublabels, !!icon)
-          return sublabels.map((sublabel, line) => (
-            <text
-              key={sublabel}
-              x={cx}
-              y={cy + subY(line)}
-              textAnchor="middle"
-              dominantBaseline="central"
-              fontSize={fontSize}
-              fontWeight={500}
-              letterSpacing={fontSize * 0.08}
-              fill="#0C0C0C"
-              opacity={arc?.index === i ? 1 - arc.p : 1}
-              className="pointer-events-none select-none"
-              style={hoverGrow(i)}
-            >
-              {sublabel}
-            </text>
-          ))
+          return sublabels.map((sublabel, line) => {
+            // Lines with their own panel are clickable while the circle is at rest
+            const clickable = sublabel in panels && selected === null
+            return (
+              <text
+                key={sublabel}
+                x={cx}
+                y={cy + subY(line)}
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontSize={fontSize}
+                fontWeight={500}
+                letterSpacing={fontSize * 0.08}
+                fill="#0C0C0C"
+                opacity={arc?.index === i ? 1 - arc.p : 1}
+                className={`select-none ${
+                  clickable
+                    ? 'cursor-pointer underline-offset-8 hover:underline'
+                    : 'pointer-events-none'
+                }`}
+                style={hoverGrow(i)}
+                {...(clickable && {
+                  role: 'button',
+                  tabIndex: 0,
+                  onClick: (e: React.MouseEvent) => {
+                    e.stopPropagation()
+                    zoomIn(i, sublabel)
+                  },
+                  onKeyDown: (e: React.KeyboardEvent) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      zoomIn(i, sublabel)
+                    }
+                  },
+                  onMouseEnter: () => setHovered(i),
+                  onMouseLeave: () => setHovered(h => (h === i ? null : h)),
+                })}
+              >
+                {sublabel}
+              </text>
+            )
+          })
         })}
         {/* Icon under a circle's words. When zoomed in it glides onto the
             border with the label, sitting just before the word on the arc and
