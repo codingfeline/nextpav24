@@ -337,8 +337,10 @@ export default function NewHome({ panels = {} }: Props) {
         preserveAspectRatio="xMidYMid meet"
         className={`block w-full mx-auto ${
           // dvh = the visible height on mobile (100vh includes the area under the
-          // browser's address bar), matching window.innerHeight used for the zoom
-          selected === null ? 'h-auto max-h-screen' : 'h-dvh'
+          // browser's address bar), matching window.innerHeight used for the zoom.
+          // At rest on mobile it's still full height, so the faded black backdrop
+          // fills the screen (the circles stay centred via xMidYMid meet).
+          selected === null ? 'h-dvh md:h-auto md:max-h-screen' : 'h-dvh'
         }`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
