@@ -167,7 +167,13 @@ const positionsAt = (rotation: number): Circle[] => [
 
 // rv: radius (in SVG units) of the edge the label hugs. Normally the circle's
 // own edge; on mobile, where the circle overflows the screen, the screen's edge.
-type ArcState = { index: number; p: number; alpha: number; rv: number }
+// line: which text moves onto the border: null = the circle's label, otherwise
+// the index of the clicked sublabel (the label then fades out where it is).
+type ArcState = { index: number; p: number; alpha: number; rv: number; line: number | null }
+
+// Text that sits on circle i's border for a given ArcState line
+const arcText = (c: Circle, line: number | null) =>
+  (line === null ? c.label : c.sublabels?.[line]) ?? ''
 
 // Phones: a zoomed circle fills the whole screen rather than its width
 const MOBILE_QUERY = '(max-width: 767px)'
@@ -247,14 +253,15 @@ export default function NewHome({ panels = {} }: Props) {
   // Animate a label between the centre (p = 0) and the border (p = 1),
   // in step with the zoom
   const animateArc = useCallback(
-    (index: number, to: 0 | 1, alpha: number, rv: number) => {
+    (index: number, to: 0 | 1, alpha: number, rv: number, line: number | null) => {
       cancelAnimationFrame(arcFrameRef.current)
-      const from = arcRef.current?.index === index ? arcRef.current.p : 0
+      const cur = arcRef.current
+      const from = cur?.index === index && cur.line === line ? cur.p : 0
       const start = performance.now()
       const step = (now: number) => {
         const t = easeInOutCubic(Math.min((now - start) / ZOOM_MS, 1))
         const next =
-          t < 1 || to === 1 ? { index, p: from + (to - from) * t, alpha, rv } : null
+          t < 1 || to === 1 ? { index, p: from + (to - from) * t, alpha, rv, line } : null
         arcRef.current = next
         setArc(next)
         if (t < 1) arcFrameRef.current = requestAnimationFrame(step)
@@ -268,8 +275,8 @@ export default function NewHome({ panels = {} }: Props) {
     setSelected(null)
     animateTo(FULL_VIEW)
     if (arcRef.current) {
-      const { index, alpha, rv } = arcRef.current
-      animateArc(index, 0, alpha, rv)
+      const { index, alpha, rv, line } = arcRef.current
+      animateArc(index, 0, alpha, rv, line)
     }
   }, [animateTo, animateArc])
 
@@ -294,8 +301,11 @@ export default function NewHome({ panels = {} }: Props) {
     setSelected(index)
     setFillScreen(mobile)
     animateTo([cx - w / 2, cy - h / 2, w, h], () => setZoomDone(true))
+    // A clicked sublabel goes onto the border instead of the circle's label
+    const sub = key === null ? -1 : (circles[index].sublabels ?? []).indexOf(key)
+    const line = sub >= 0 ? sub : null
     // Snap any other label back to the centre, then move this one if needed
-    if (arcRef.current && arcRef.current.index !== index) {
+    if (arcRef.current && (arcRef.current.index !== index || arcRef.current.line !== line)) {
       cancelAnimationFrame(arcFrameRef.current)
       arcRef.current = null
       setArc(null)
@@ -304,12 +314,12 @@ export default function NewHome({ panels = {} }: Props) {
     if (label && ARC_LABELS.has(label)) {
       // Aim for north-west, but on wide screens the top of the circle is cut
       // off, so lower the label until all of it stays on screen
-      const { R, fs, halfLen } = arcMetrics(rv, label)
+      const { R, fs, halfLen } = arcMetrics(rv, arcText(circles[index], line))
       const visible = Math.asin(Math.min(1, (h / 2 - fs) / R)) // highest on-screen angle
       // On mobile the content is nearly full width, so the label sits due west,
       // in the narrow strip left of the content, rather than up at north-west
       const alpha = mobile ? 0 : Math.max(0, Math.min(ARC_LABEL_ANGLE, visible - halfLen))
-      animateArc(index, 1, alpha, rv)
+      animateArc(index, 1, alpha, rv, line)
     }
     svg.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
@@ -381,33 +391,9 @@ export default function NewHome({ panels = {} }: Props) {
             mouse so hover/click reach the circle underneath */}
         {circles.map(({ cx, cy, label, sublabels, icon }, i) => {
           if (!label) return null
-          const { labelSize, labelY } = labelLayout(i, sublabels, !!icon)
+          const { labelSize, labelY, subSize, subY } = labelLayout(i, sublabels, !!icon)
 
-          // Zoomed in: the label glides onto the left border, along the arc
-          if (arc?.index === i) {
-            const { p, rv } = arc
-            const fontSize = labelSize + (rv * ARC_FONT - labelSize) * p // shrink to fit the border
-            const R = rv * (1 - ARC_FONT * 0.75) // text's centreline, just inside the edge
-            const pathId = `label-arc-${i}`
-            return (
-              <g key={label} className="pointer-events-none select-none">
-                <path id={pathId} d={labelArcPath(cx, cy, R, p, arc.alpha, labelY)} />
-                <text
-                  fontSize={fontSize}
-                  fontWeight={600}
-                  letterSpacing={fontSize * 0.06}
-                  dominantBaseline="central"
-                  fill="#0C0C0C"
-                >
-                  <textPath href={`#${pathId}`} startOffset="50%" textAnchor="middle">
-                    {label}
-                  </textPath>
-                </text>
-              </g>
-            )
-          }
-
-          return (
+          const centred = (opacity = 1) => (
             <text
               key={label}
               x={cx}
@@ -418,18 +404,53 @@ export default function NewHome({ panels = {} }: Props) {
               fontWeight={600}
               letterSpacing={labelSize * 0.06}
               fill="#0C0C0C"
+              opacity={opacity}
               className="pointer-events-none select-none"
               style={hoverGrow(i)}
             >
               {label}
             </text>
           )
+
+          // Zoomed in: the label (or the clicked sublabel, starting from its own
+          // line and size) glides onto the left border, along the arc
+          if (arc?.index === i) {
+            const { p, rv, line } = arc
+            const text = arcText(circles[i], line)
+            const startSize = line === null ? labelSize : subSize
+            const startDy = line === null ? labelY : subY(line)
+            const fontSize = startSize + (rv * ARC_FONT - startSize) * p // shrink to fit the border
+            const R = rv * (1 - ARC_FONT * 0.75) // text's centreline, just inside the edge
+            const pathId = `label-arc-${i}`
+            return (
+              <g key={label} className="pointer-events-none select-none">
+                {/* A sublabel took the border, so the label fades out in place */}
+                {line !== null && centred(1 - p)}
+                <path id={pathId} d={labelArcPath(cx, cy, R, p, arc.alpha, startDy)} />
+                <text
+                  fontSize={fontSize}
+                  fontWeight={600}
+                  letterSpacing={fontSize * 0.06}
+                  dominantBaseline="central"
+                  fill="#0C0C0C"
+                >
+                  <textPath href={`#${pathId}`} startOffset="50%" textAnchor="middle">
+                    {text}
+                  </textPath>
+                </text>
+              </g>
+            )
+          }
+
+          return centred()
         })}
         {/* Smaller lines under a centred label; they fade out as the label
             moves to the border when zoomed in */}
         {circles.flatMap(({ cx, cy, sublabels = [], icon }, i) => {
           const { subSize: fontSize, subY } = labelLayout(i, sublabels, !!icon)
           return sublabels.map((sublabel, line) => {
+            // This line is the one on the border; it's drawn with the labels above
+            if (arc?.index === i && arc.line === line) return null
             // Lines with their own panel are clickable while the circle is at rest
             const clickable = sublabel in panels && selected === null
             return (
@@ -484,8 +505,8 @@ export default function NewHome({ panels = {} }: Props) {
           let size = iconSize
           let rotate = 0
           if (arc?.index === i) {
-            const { p, alpha, rv } = arc
-            const { R, fs, halfLen } = arcMetrics(rv, label)
+            const { p, alpha, rv, line } = arc
+            const { R, fs, halfLen } = arcMetrics(rv, arcText(circles[i], line))
             const endSize = fs * 1.1
             // Angle (above due west) of the icon's centre: below the word's start
             const a = alpha - halfLen - (fs * 0.5 + endSize / 2) / R
